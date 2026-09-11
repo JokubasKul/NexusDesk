@@ -2,6 +2,7 @@ package nexusDesk.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DatabaseConnection {
@@ -25,7 +26,7 @@ public class DatabaseConnection {
 
             stmt.execute(sql);
 
-            System.out.println("Database created successfully");
+            System.out.println("Database operation successfull");
             return true;
 
         } catch (Exception e) {
@@ -35,17 +36,36 @@ public class DatabaseConnection {
         return false;
     }
 
+    public static void printTable(String tableName) {
+
+        try (Connection conn = connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM " + tableName)) {
+
+            int columnCount = rs.getMetaData().getColumnCount();
+
+            System.out.println("\nTABLE: " + tableName);
+
+            while (rs.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    System.out.print(
+                            rs.getMetaData().getColumnName(i) + ": " +
+                                    rs.getString(i) + " | "
+                    );
+                }
+                System.out.println();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args){
-        execute("""
-                CREATE TABLE tasks (
-                    task_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    project_id INTEGER,
-                    colour_id INTEGER,
-                    name TEXT NOT NULL,
-                    comment TEXT,
-                    FOREIGN KEY (colour_id) REFERENCES colours(colour_id),
-                    FOREIGN KEY (project_id) REFERENCES projects(project_id)
-                );
-                """);
+        printTable("tasks");
+        printTable("projects");
+        printTable("notes");
+        printTable("bookmarks");
+        printTable("colours");
     }
 }
