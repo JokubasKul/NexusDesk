@@ -5,10 +5,10 @@ public class Bookmarks {
     private int bookmark_id;
     private String title;
     private String description;
-    private boolean needsUrl;
+    private int needsUrl;
     private String url;
 
-    public Bookmarks(int bookmark_id, String title, String description, boolean needsUrl, String url) {
+    public Bookmarks(int bookmark_id, String title, String description, int needsUrl, String url) {
         this.bookmark_id = bookmark_id;
         this.title = title;
         this.description = description;
@@ -37,10 +37,10 @@ public class Bookmarks {
         this.description = description;
     }
 
-    public boolean isNeedsUrl() {
+    public int isNeedsUrl() {
         return needsUrl;
     }
-    public void setNeedsUrl(boolean needsUrl) {
+    public void setNeedsUrl(int needsUrl) {
         this.needsUrl = needsUrl;
     }
 

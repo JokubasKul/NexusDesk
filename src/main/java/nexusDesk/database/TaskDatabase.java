@@ -61,6 +61,16 @@ public class TaskDatabase {
         statement.executeUpdate();
     }
 
+    public void updateTaskCompletion(int task_id) throws SQLException{
+        String sql="UPDATE tasks SET isComplete = 1 WHERE task_id = ?";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setInt(1, task_id);
+
+        statement.executeUpdate();
+    }
+
     public void updateTaskComment(int task_id, String comment) throws SQLException {
         String sql = "UPDATE tasks SET comment = ? WHERE task_id = ?";
 

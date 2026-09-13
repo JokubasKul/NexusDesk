@@ -13,7 +13,7 @@ public class DatabaseConnection {
         Connection conn = DriverManager.getConnection(URL);
 
         try (Statement stmt = conn.createStatement()) {
-            stmt.execute("PRAGMA foreign_keys = OFF;");
+            stmt.execute("PRAGMA foreign_keys = ON;");
         }
 
         return conn;
