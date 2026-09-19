@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="nexusDesk.controllers.MainController"
+            stylesheets="@../css/style.css">
+
+    <!-- Top header -->
+    <top>
+        <VBox fx:id="topHeader" alignment="CENTER_LEFT" prefHeight="80">
+            <padding> <Insets left="20"/> </padding>
+            <Label fx:id="appTitle" text="NexusDesk"/>
+
+        </VBox>
+    </top>
+
+
+    <!-- Left menu -->
+    <left>
+        <VBox fx:id="menuSection" spacing="10" prefWidth="180">
+
+            <padding>
+                <Insets top="20" right="15" bottom="20" left="15"/>
+            </padding>
+
+            <Button styleClass="menuButton" text="Projects" maxWidth="Infinity" onAction="#openProjects"/>
+
+            <Button styleClass="menuButton" text="Personal tasks" maxWidth="Infinity" onAction="#openTasks"/>
+
+            <Button styleClass="menuButton" text="Notes" maxWidth="Infinity" onAction="#openNotes"/>
+
+            <Button styleClass="menuButton" text="Bookmarks" maxWidth="Infinity" onAction="#openBookmarks"/>
+
+            <Button styleClass="menuButton" text="Converters" maxWidth="Infinity" onAction="#openConverters"/>
+
+            <Button styleClass="menuButton" text="Calculator" maxWidth="Infinity" onAction="#openCalculator"/>
+
+        </VBox>
+    </left>
+
+
+    <!-- Main content -->
+    <center>
+        <StackPane fx:id="mainContent"/>
+    </center>
+
+</BorderPane>

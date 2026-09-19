@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="nexusDesk.controllers.ProjectsController"
+            stylesheets="@../css/style.css"
+            styleClass="page">
+
+    <!-- Top -->
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+            <Label fx:id="projectsTitle" text="Projects"/>
+            <Label fx:id="addProject" text="+ Add Project" onMouseClicked="#addProject"/>
+        </VBox>
+    </top>
+
+    <!-- Project list -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER">
+            <VBox fx:id="projectCard" spacing="10">
+                <padding>
+                    <Insets top="10" right="20" bottom="20" left="20"/>
+                </padding>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

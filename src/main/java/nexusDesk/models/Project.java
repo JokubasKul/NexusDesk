@@ -1,12 +1,12 @@
 package nexusDesk.models;
 
-public class Projects {
+public class Project {
 
     private int project_id;
     private int colour_id;
     private String title;
 
-    public Projects(int project_id, int colour_id, String title) {
+    public Project(int project_id, int colour_id, String title) {
         this.project_id = project_id;
         this.colour_id = colour_id;
         this.title = title;

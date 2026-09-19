@@ -1,15 +1,12 @@
 package nexusDesk.database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class DatabaseConnection {
 
     private static final String URL = "jdbc:sqlite:NexusDesk.db";
 
-    public static Connection connect() throws Exception {
+    public static Connection connect() throws SQLException {
         Connection conn = DriverManager.getConnection(URL);
 
         try (Statement stmt = conn.createStatement()) {
@@ -62,10 +59,8 @@ public class DatabaseConnection {
     }
 
     public static void main(String[] args){
-        printTable("tasks");
-        printTable("projects");
-        printTable("notes");
-        printTable("bookmarks");
-        printTable("colours");
+        execute("""
+                
+                """);
     }
 }

@@ -1,6 +1,6 @@
 package nexusDesk.models;
 
-public class Tasks {
+public class Task {
 
     private int task_id;
     private int project_id;
@@ -9,7 +9,7 @@ public class Tasks {
     private String comment;
     private int isComplete;
 
-    public Tasks(int task_id, int project_id, int colour_id, String name, String comment, int isComplete) {
+    public Task(int task_id, int project_id, int colour_id, String name, String comment, int isComplete) {
         this.task_id = task_id;
         this.project_id = project_id;
         this.colour_id = colour_id;

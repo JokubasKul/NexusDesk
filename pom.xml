@@ -48,7 +48,7 @@
                 <version>0.0.8</version>
 
                 <configuration>
-                    <mainClass>com.nexusdesk.Main</mainClass>
+                    <mainClass>nexusDesk.Main</mainClass>
                 </configuration>
             </plugin>
 

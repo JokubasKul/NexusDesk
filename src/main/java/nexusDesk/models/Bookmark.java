@@ -1,6 +1,6 @@
 package nexusDesk.models;
 
-public class Bookmarks {
+public class Bookmark {
 
     private int bookmark_id;
     private String title;
@@ -8,7 +8,7 @@ public class Bookmarks {
     private int needsUrl;
     private String url;
 
-    public Bookmarks(int bookmark_id, String title, String description, int needsUrl, String url) {
+    public Bookmark(int bookmark_id, String title, String description, int needsUrl, String url) {
         this.bookmark_id = bookmark_id;
         this.title = title;
         this.description = description;

@@ -1,12 +1,12 @@
 package nexusDesk.models;
 
-public class Colours {
+public class Colour {
 
     private int colour_id;
     private String colour;
     private String hex;
 
-    public Colours(int colour_id, String colour, String hex) {
+    public Colour(int colour_id, String colour, String hex) {
         this.colour_id = colour_id;
         this.colour = colour;
         this.hex = hex;

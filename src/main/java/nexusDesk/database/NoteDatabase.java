@@ -1,6 +1,6 @@
 package nexusDesk.database;
 
-import nexusDesk.models.Notes;
+import nexusDesk.models.Note;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,38 +11,39 @@ import java.util.List;
 
 public class NoteDatabase {
 
-    private Connection connection;
 
-    public void createNote(int note_id, String title) throws SQLException {
+    public void createNote(String title) throws SQLException {
 
-        String sql="INSERT INTO notes(note_id, title, colour_id) VALUES (?, ?, 26)";
+        String sql="INSERT INTO notes(title) VALUES (?)";
 
-        PreparedStatement statement = connection.prepareStatement(sql);
+        try (Connection connection = DatabaseConnection.connect();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        statement.setInt(1, note_id);
-        statement.setString(2, title);
+            statement.setString(1, title);
 
-        statement.executeUpdate();
+            statement.executeUpdate();
+        }
     }
 
-    public List<Notes> getAllNotes() throws SQLException{
+    public List<Note> getAllNotes() throws SQLException{
 
-        List<Notes> notes = new ArrayList<>();
+        List<Note> notes = new ArrayList<>();
 
         String sql="SELECT * FROM notes";
 
+        try (Connection connection = DatabaseConnection.connect();
         PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet result = statement.executeQuery()) {
 
-        ResultSet result = statement.executeQuery();
-
-        while (result.next()) {
-            Notes note = new Notes(
-                    result.getInt("note_id"),
-                    result.getInt("colour_id"),
-                    result.getString("title"),
-                    result.getString("content")
-            );
-            notes.add(note);
+            while (result.next()) {
+                Note note = new Note(
+                        result.getInt("note_id"),
+                        result.getInt("colour_id"),
+                        result.getString("title"),
+                        result.getString("content")
+                );
+                notes.add(note);
+            }
         }
         return notes;
     }
@@ -50,32 +51,39 @@ public class NoteDatabase {
     public void updateNoteTitle(int note_id, String title) throws SQLException {
         String sql="UPDATE notes SET title = ? WHERE note_id = ?";
 
-        PreparedStatement statement = connection.prepareStatement(sql);
+        try (Connection connection = DatabaseConnection.connect();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        statement.setString(1, title);
-        statement.setInt(2, note_id);
+            statement.setString(1, title);
+            statement.setInt(2, note_id);
 
-        statement.executeUpdate();
+            statement.executeUpdate();
+        }
     }
 
     public void updateNoteContent(int note_id, String content) throws SQLException {
         String sql="UPDATE notes SET content = ? WHERE note_id = ?";
 
-        PreparedStatement statement = connection.prepareStatement(sql);
+        try (Connection connection = DatabaseConnection.connect();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        statement.setString(1, content);
-        statement.setInt(2, note_id);
+            statement.setString(1, content);
+            statement.setInt(2, note_id);
 
-        statement.executeUpdate();
+            statement.executeUpdate();
+        }
     }
 
     public void deleteNote(int note_id) throws SQLException{
         String sql="DELETE FROM notes WHERE note_id = ?";
 
-        PreparedStatement statement = connection.prepareStatement(sql);
+        try (Connection connection = DatabaseConnection.connect();
+        PreparedStatement statement = connection.prepareStatement(sql)) {
 
-        statement.setInt(1, note_id);
+            statement.setInt(1, note_id);
 
-        statement.executeUpdate();
+            statement.executeUpdate();
+        }
     }
+
 }

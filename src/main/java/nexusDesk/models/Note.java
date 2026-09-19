@@ -1,13 +1,13 @@
 package nexusDesk.models;
 
-public class Notes {
+public class Note {
 
     private int note_id;
     private int colour_id;
     private String title;
     private String content;
 
-    public Notes(int note_id, int colour_id, String title, String content) {
+    public Note(int note_id, int colour_id, String title, String content) {
         this.note_id = note_id;
         this.colour_id = colour_id;
         this.title = title;

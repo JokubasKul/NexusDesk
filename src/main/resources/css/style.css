@@ -1,0 +1,54 @@
+#topHeader{
+    -fx-background-color: #0665A2;
+}
+#appTitle{
+    -fx-text-fill: #FBA224;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+}
+
+#menuSection{
+    -fx-background-color: #61B3E9;
+}
+
+.menuButton{
+    -fx-background-color: #0B7DC7;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.menuButton:hover{
+    -fx-background-color: #065B92;
+}
+
+/*Projects section*/
+
+#projectCard {
+    -fx-background-color: #eeeeee;
+    -fx-background-radius: 8px;
+
+    -fx-border-radius: 8px;
+    -fx-border-color: #cccccc;
+
+    -fx-padding: 15px;
+
+    -fx-font-size: 16px;
+
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
+}
+
+#projectsTitle{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+#addProject{
+     -fx-font-size: 16px;
+     -fx-alignment: CENTER;
+     -fx-font-weight: bold;
+     -fx-cursor: hand;
+}
+#addProject:hover{
+    -fx-text-fill: #31AD03;
+}
