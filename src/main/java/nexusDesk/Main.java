@@ -15,7 +15,7 @@ public class Main extends Application {
                 getClass().getResource("/fxml/MainView.fxml")
         );
 
-        Scene scene = new Scene(loader.load(), 800, 600);
+        Scene scene = new Scene(loader.load(), 1000, 1000);
 
         stage.setTitle("NexusDesk");
         stage.setScene(scene);

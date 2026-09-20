@@ -14,17 +14,17 @@ public class Note {
         this.content = content;
     }
 
-    public int getNote_id() {
+    public int getNoteId() {
         return note_id;
     }
-    public void setNote_id(int note_id) {
+    public void setNoteId(int note_id) {
         this.note_id = note_id;
     }
 
-    public int getColour_id() {
+    public int getColourId() {
         return colour_id;
     }
-    public void setColour_id(int colour_id) {
+    public void setColourId(int colour_id) {
         this.colour_id = colour_id;
     }
 

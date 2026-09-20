@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import nexusDesk.database.ProjectDatabase;
 import nexusDesk.models.Project;
@@ -16,7 +18,7 @@ import java.util.Optional;
 public class ProjectsController {
 
     @FXML
-    private VBox projectCard;
+    private VBox projectsList;
 
     private final ProjectDatabase projectDatabase = new ProjectDatabase();
 
@@ -27,27 +29,58 @@ public class ProjectsController {
 
     private void loadProjects() {
 
-        projectCard.getChildren().clear();
+        projectsList.getChildren().clear();
 
         try {
             List<Project> projects = projectDatabase.getAllProjects();
 
             for (Project project : projects) {
 
-                Button projectButton = new Button(project.getTitle());
+                HBox projectCard = new HBox(10);
+                projectCard.getStyleClass().add("projectCard");
 
-                projectButton.setMaxWidth(Double.MAX_VALUE);
-                projectButton.getStyleClass().add("project-card");
+                Button colourButton = new Button("●");
+                colourButton.getStyleClass().add("colourButton");
+
+                Button projectButton = new Button(project.getTitle());
+                projectButton.getStyleClass().add("projectName");
 
                 projectButton.setOnAction(event -> {
                     System.out.println("Opened project: " + project.getTitle());
                 });
-                projectCard.getChildren().add(projectButton);
+
+                // Make project name take up available space
+                HBox.setHgrow(projectButton, Priority.ALWAYS);
+                projectButton.setMaxWidth(Double.MAX_VALUE);
+
+                // Delete button
+                Button deleteButton = new Button("×");
+                deleteButton.getStyleClass().add("deleteButton");
+
+                deleteButton.setOnAction(event -> {
+                    try {
+                        projectDatabase.deleteProject(project.getProjectId());
+                        loadProjects();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                projectCard.getChildren().addAll(
+                        colourButton,
+                        projectButton,
+                        deleteButton
+                );
+
+                projectsList.getChildren().add(projectCard);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
+
 
     @FXML
     private void addProject() {
@@ -56,7 +89,7 @@ public class ProjectsController {
         textField.setPromptText("Project name...");
         textField.setOnAction(event -> saveProject(textField));
 
-        projectCard.getChildren().add(0, textField);
+        projectsList.getChildren().add(0, textField);
 
         textField.requestFocus();
 
@@ -67,13 +100,13 @@ public class ProjectsController {
         String title = textField.getText().trim();
 
         if (title.isEmpty()) {
-            projectCard.getChildren().remove(textField);
+            projectsList.getChildren().remove(textField);
             return;
         }
 
         try {
             projectDatabase.createProject(title);
-            projectCard.getChildren().remove(textField);
+            projectsList.getChildren().remove(textField);
 
             loadProjects();
 

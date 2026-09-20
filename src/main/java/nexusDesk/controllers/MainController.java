@@ -21,8 +21,23 @@ public class MainController {
             e.printStackTrace();
         };
     }
-    public void openTasks(){
-        System.out.println("Tasks opened");
+    @FXML
+    public void openTasks() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/TasksView.fxml")
+            );
+
+            Node tasksView = loader.load();
+
+            TasksController tasksController = loader.getController();
+            tasksController.setProjectId(0);
+
+            mainContent.getChildren().setAll(tasksView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void openNotes(){
         System.out.println("Notes opened");

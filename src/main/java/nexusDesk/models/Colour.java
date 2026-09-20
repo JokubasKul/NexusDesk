@@ -12,10 +12,10 @@ public class Colour {
         this.hex = hex;
     }
 
-    public int getColour_id() {
+    public int getColourId() {
         return colour_id;
     }
-    public void setColour_id(int colour_id) {
+    public void setColourId(int colour_id) {
         this.colour_id = colour_id;
     }
 

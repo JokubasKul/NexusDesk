@@ -16,10 +16,10 @@ public class Bookmark {
         this.url = url;
     }
 
-    public int getBookmark_id() {
+    public int getBookmarkId() {
         return bookmark_id;
     }
-    public void setBookmark_id(int bookmark_id) {
+    public void setBookmarkId(int bookmark_id) {
         this.bookmark_id = bookmark_id;
     }
 

@@ -24,19 +24,43 @@
 
 /*Projects section*/
 
-#projectCard {
+.projectCard {
     -fx-background-color: #eeeeee;
     -fx-background-radius: 8px;
 
     -fx-border-radius: 8px;
     -fx-border-color: #cccccc;
 
-    -fx-padding: 15px;
-
-    -fx-font-size: 16px;
+    -fx-padding: 10px;
 
     -fx-alignment: CENTER_LEFT;
+}
+
+.projectName {
+    -fx-background-color: transparent;
+
+    -fx-font-size: 16px;
+    -fx-text-fill: #555555;
+
+    -fx-alignment: CENTER_LEFT;
+
     -fx-cursor: hand;
+}
+
+.colourButton {
+    -fx-background-color: transparent;
+    -fx-font-size: 30px;
+    -fx-cursor: hand;
+}
+
+.deleteButton {
+    -fx-background-color: transparent;
+    -fx-font-size: 34px;
+    -fx-cursor: hand;
+    -fx-text-fill: #d00000;
+}
+.deleteButton:hover{
+    -fx-text-fill: #800000;
 }
 
 #projectsTitle{
@@ -51,4 +75,85 @@
 }
 #addProject:hover{
     -fx-text-fill: #31AD03;
+}
+
+/*Tasks section*/
+
+#taskHeader{
+    -fx-background-color: #e2e2e2;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0 0 0 1px;
+}
+
+#taskSectionTitle{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+#addTask{
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+#addTask:hover{
+    -fx-text-fill: #31AD03;
+}
+
+.taskCard {
+    -fx-background-color: #f9f9f9;
+
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 6px;
+
+    -fx-background-radius: 6px;
+
+    -fx-padding: 10px;
+}
+
+.taskComplete,
+.taskColour,
+.taskComment {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.taskComplete {
+    -fx-font-size: 20px;
+}
+.taskComplete:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: #31AD03;
+}
+
+.taskName{
+    -fx-font-size: 15px;
+}
+
+.taskColour {
+    -fx-text-fill: #D3D3D3;
+    -fx-font-size: 20px;
+}
+
+.taskComment {
+    -fx-font-size: 18px;
+}
+.taskComment:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: #31AD03;
+}
+
+.detailsTitle {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+.commentTitle {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+#taskDetails{
+    -fx-background-color: #e2e2e2;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 0 0 0 1px;
 }

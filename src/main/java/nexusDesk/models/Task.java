@@ -18,24 +18,24 @@ public class Task {
         this.isComplete = isComplete;
     }
 
-    public int getTask_id() {
+    public int getTaskId() {
         return task_id;
     }
-    public void setTask_id(int task_id) {
+    public void setTaskId(int task_id) {
         this.task_id = task_id;
     }
 
-    public int getProject_id() {
+    public int getProjectId() {
         return project_id;
     }
-    public void setProject_id(int project_id) {
+    public void setProjectId(int project_id) {
         this.project_id = project_id;
     }
 
-    public int getColour_id() {
+    public int getColourId() {
         return colour_id;
     }
-    public void setColour_id(int colour_id) {
+    public void setColourId(int colour_id) {
         this.colour_id = colour_id;
     }
 

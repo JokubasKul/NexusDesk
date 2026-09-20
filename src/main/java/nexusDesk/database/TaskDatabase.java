@@ -29,7 +29,7 @@ public class TaskDatabase {
 
         List<Task> tasks = new ArrayList<>();
 
-        String sql = "SELECT * FROM tasks WHERE project_id = ?";
+        String sql = "SELECT * FROM tasks WHERE project_id = ? AND isComplete=0";
 
         try (Connection connection = DatabaseConnection.connect();
         PreparedStatement statement = connection.prepareStatement(sql)){

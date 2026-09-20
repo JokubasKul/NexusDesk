@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="nexusDesk.controllers.TasksController"
+            stylesheets="@../css/style.css"
+            styleClass="page">
+
+    <!-- Top -->
+    <top>
+        <VBox fx:id="taskHeader" spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="10" left="20"/>
+            </padding>
+
+            <Label fx:id="taskSectionTitle" text="Personal Tasks"/>
+
+            <Label fx:id="addTask" text="+Add Task" onMouseClicked="#addTask"/>
+        </VBox>
+    </top>
+
+    <!-- Main area -->
+    <center>
+        <BorderPane>
+
+            <!-- Task list -->
+            <center>
+                <ScrollPane fitToWidth="true"
+                            hbarPolicy="NEVER">
+
+                    <VBox fx:id="tasksList" spacing="10">
+
+                        <padding>
+                            <Insets top="10" right="20" bottom="20" left="20"/>
+                        </padding>
+
+                    </VBox>
+
+                </ScrollPane>
+            </center>
+
+            <!-- Future subtasks / comment editor -->
+            <right>
+                <BorderPane fx:id="taskDetails" prefWidth="300" styleClass="taskDetails"/>
+            </right>
+
+        </BorderPane>
+    </center>
+
+</BorderPane>

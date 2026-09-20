@@ -60,7 +60,8 @@ public class DatabaseConnection {
 
     public static void main(String[] args){
         execute("""
-                
+                INSERT INTO projects (project_id, title)
+                VALUES (0, 'Personal Tasks');
                 """);
     }
 }

@@ -12,17 +12,17 @@ public class Project {
         this.title = title;
     }
 
-    public int getProject_id() {
+    public int getProjectId() {
         return project_id;
     }
-    public void setProject_id(int project_id) {
+    public void setProjectId(int project_id) {
         this.project_id = project_id;
     }
 
-    public int getColour_id() {
+    public int getColourId() {
         return colour_id;
     }
-    public void setColour_id(int colour_id) {
+    public void setColourId(int colour_id) {
         this.colour_id = colour_id;
     }
 
