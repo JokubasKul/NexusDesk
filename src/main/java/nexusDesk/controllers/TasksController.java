@@ -4,7 +4,10 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import nexusDesk.ColourPicker;
+import nexusDesk.database.OptionDatabase;
 import nexusDesk.database.TaskDatabase;
+import nexusDesk.models.Colour;
 import nexusDesk.models.Task;
 
 import java.sql.SQLException;
@@ -13,24 +16,43 @@ import java.util.List;
 public class TasksController {
 
     @FXML
+    private VBox taskHeader;
+
+    private int projectId;
+    private int projectColourId;
+
+    @FXML
     private Label taskSectionTitle;
     @FXML
     private VBox tasksList;
     @FXML
     private BorderPane taskDetails;
 
+
+    private final OptionDatabase optionDatabase = new OptionDatabase();
     private final TaskDatabase taskDatabase = new TaskDatabase();
 
-    private int projectId;
 
-    public void setProjectId(int projectId) {
+    public void setProject(int projectId, int colourId) {
+
         this.projectId = projectId;
+        this.projectColourId = colourId;
 
         if (projectId == 0) {
             taskSectionTitle.setText("Personal Tasks");
         } else {
-            // We'll get the project name later
             taskSectionTitle.setText("Project Tasks");
+        }
+
+        try {
+            String colour = optionDatabase.getColourHex(colourId);
+
+            taskHeader.setStyle(
+                    "-fx-background-color: " + colour + "4D;"
+            );
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         loadTasks();
@@ -67,6 +89,26 @@ public class TasksController {
 
                 Button colourButton = new Button("●");
                 colourButton.getStyleClass().add("taskColour");
+
+                colourButton.setOnAction(event -> {
+
+                    Colour selectedColour = ColourPicker.show();
+
+                    if (selectedColour != null) {
+
+                        try {
+                            optionDatabase.updateTaskColour(
+                                    task.getTaskId(),
+                                    selectedColour.getColourId()
+                            );
+
+                            // Refresh task list later
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
                 Button commentButton = new Button("\ud83d\udcc4");
                 commentButton.getStyleClass().add("taskComment");
@@ -200,4 +242,3 @@ public class TasksController {
     }
 
 }
-

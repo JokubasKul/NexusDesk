@@ -14,8 +14,15 @@ public class MainController {
 
     public void openProjects(){
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectsView.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/ProjectsView.fxml")
+            );
+
             Node projectsView = loader.load();
+
+            ProjectsController controller = loader.getController();
+            controller.setMainContent(mainContent);
+
             mainContent.getChildren().setAll(projectsView);
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,7 +38,7 @@ public class MainController {
             Node tasksView = loader.load();
 
             TasksController tasksController = loader.getController();
-            tasksController.setProjectId(0);
+            tasksController.setProject(0, 26);
 
             mainContent.getChildren().setAll(tasksView);
 

@@ -28,7 +28,7 @@ public class ProjectDatabase {
 
         List<Project> projects = new ArrayList<>();
 
-        String sql="SELECT * FROM projects";
+        String sql="SELECT * FROM projects WHERE project_id>0";
 
         try (Connection connection = DatabaseConnection.connect();
         PreparedStatement statement = connection.prepareStatement(sql);

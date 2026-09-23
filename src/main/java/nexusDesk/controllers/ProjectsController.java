@@ -1,16 +1,20 @@
 package nexusDesk.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import nexusDesk.database.ProjectDatabase;
 import nexusDesk.models.Project;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
@@ -20,7 +24,13 @@ public class ProjectsController {
     @FXML
     private VBox projectsList;
 
+    private StackPane mainContent;
+
     private final ProjectDatabase projectDatabase = new ProjectDatabase();
+
+    public void setMainContent(StackPane mainContent) {
+        this.mainContent = mainContent;
+    }
 
     @FXML
     public void initialize() {
@@ -46,14 +56,31 @@ public class ProjectsController {
                 projectButton.getStyleClass().add("projectName");
 
                 projectButton.setOnAction(event -> {
-                    System.out.println("Opened project: " + project.getTitle());
+
+                    try {
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("/fxml/TasksView.fxml")
+                        );
+
+                        Node tasksView = loader.load();
+
+                        TasksController controller = loader.getController();
+
+                        controller.setProject(
+                                project.getProjectId(),
+                                project.getColourId()
+                        );
+
+                        mainContent.getChildren().setAll(tasksView);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 });
 
-                // Make project name take up available space
                 HBox.setHgrow(projectButton, Priority.ALWAYS);
                 projectButton.setMaxWidth(Double.MAX_VALUE);
 
-                // Delete button
                 Button deleteButton = new Button("×");
                 deleteButton.getStyleClass().add("deleteButton");
 
