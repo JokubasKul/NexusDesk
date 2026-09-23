@@ -1,15 +1,21 @@
 package nexusDesk.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import nexusDesk.ColourPicker;
 import nexusDesk.database.OptionDatabase;
+import nexusDesk.database.ProjectDatabase;
 import nexusDesk.database.TaskDatabase;
 import nexusDesk.models.Colour;
 import nexusDesk.models.Task;
+import nexusDesk.controllers.MainController;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -28,21 +34,22 @@ public class TasksController {
     @FXML
     private BorderPane taskDetails;
 
+    private StackPane mainContent;
+
+    public void setMainContent(StackPane mainContent) {
+        this.mainContent = mainContent;
+    }
 
     private final OptionDatabase optionDatabase = new OptionDatabase();
     private final TaskDatabase taskDatabase = new TaskDatabase();
 
 
-    public void setProject(int projectId, int colourId) {
+    public void setProject(int projectId, int colourId, String title) {
 
         this.projectId = projectId;
         this.projectColourId = colourId;
 
-        if (projectId == 0) {
-            taskSectionTitle.setText("Personal Tasks");
-        } else {
-            taskSectionTitle.setText("Project Tasks");
-        }
+        taskSectionTitle.setText(title);
 
         try {
             String colour = optionDatabase.getColourHex(colourId);
@@ -58,6 +65,26 @@ public class TasksController {
         loadTasks();
     }
 
+    @FXML
+    private void returnToProjects() throws IOException {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/ProjectsView.fxml")
+            );
+
+            Node projectsView = loader.load();
+
+            ProjectsController projectsController = loader.getController();
+            projectsController.setMainContent(mainContent);
+
+            mainContent.getChildren().setAll(projectsView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void loadTasks() {
 
         tasksList.getChildren().clear();
@@ -68,7 +95,14 @@ public class TasksController {
             for (Task task : tasks) {
 
                 HBox taskCard = new HBox(10);
+                taskCard.setAlignment(Pos.CENTER_LEFT);
                 taskCard.getStyleClass().add("taskCard");
+
+                String colourHex = optionDatabase.getColourHex(task.getColourId());
+                taskCard.setStyle(
+                        "-fx-background-color: " + colourHex + "99" + ";"
+                );
+
 
                 Button completeButton = new Button("○");
                 completeButton.getStyleClass().add("taskComplete");
@@ -87,11 +121,11 @@ public class TasksController {
                 Label taskName = new Label(task.getName());
                 taskName.getStyleClass().add("taskName");
 
-                Button colourButton = new Button("●");
+
+                Button colourButton = new Button("\uD83C\uDFA8");
                 colourButton.getStyleClass().add("taskColour");
 
                 colourButton.setOnAction(event -> {
-
                     Colour selectedColour = ColourPicker.show();
 
                     if (selectedColour != null) {
@@ -102,13 +136,14 @@ public class TasksController {
                                     selectedColour.getColourId()
                             );
 
-                            // Refresh task list later
+                            loadTasks();
 
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                     }
                 });
+
 
                 Button commentButton = new Button("\ud83d\udcc4");
                 commentButton.getStyleClass().add("taskComment");

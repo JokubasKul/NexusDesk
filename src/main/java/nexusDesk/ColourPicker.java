@@ -53,7 +53,7 @@ public class ColourPicker {
                         preview.setPrefSize(30, 20);
 
                         preview.setStyle(
-                                "-fx-background-color: " + colour.getHex() + ";" +
+                                "-fx-background-color: " + colour.getHex() + "99" + ";" +
                                         "-fx-border-color: #999999;" +
                                         "-fx-border-width: 1;"
                         );

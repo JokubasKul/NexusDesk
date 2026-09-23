@@ -3,7 +3,7 @@
 }
 #appTitle{
     -fx-text-fill: #FBA224;
-    -fx-font-size: 26px;
+    -fx-font-size: 30px;
     -fx-font-weight: bold;
 }
 
@@ -39,8 +39,7 @@
 .projectName {
     -fx-background-color: transparent;
 
-    -fx-font-size: 16px;
-    -fx-text-fill: #555555;
+    -fx-font-size: 20px;
 
     -fx-alignment: CENTER_LEFT;
 
@@ -51,6 +50,10 @@
     -fx-background-color: transparent;
     -fx-font-size: 30px;
     -fx-cursor: hand;
+    -fx-text-fill: #00000099;
+}
+.colourButton:hover{
+    -fx-text-fill: #000000;
 }
 
 .deleteButton {
@@ -67,6 +70,7 @@
     -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
+
 #addProject{
      -fx-font-size: 16px;
      -fx-alignment: CENTER;
@@ -89,6 +93,10 @@
     -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
+#taskSectionTitle:hover{
+    -fx-text-fill: #44444499;
+    -fx-cursor: hand;
+}
 
 #addTask{
     -fx-font-size: 16px;
@@ -101,8 +109,6 @@
 }
 
 .taskCard {
-    -fx-background-color: #f9f9f9;
-
     -fx-border-color: #cccccc;
     -fx-border-radius: 6px;
 
@@ -120,27 +126,32 @@
 
 .taskComplete {
     -fx-font-size: 20px;
+    -fx-text-fill: #00000099;
 }
 .taskComplete:hover{
     -fx-font-weight: bold;
-    -fx-text-fill: #31AD03;
+    -fx-text-fill: #000000;
 }
 
 .taskName{
-    -fx-font-size: 15px;
+    -fx-font-size: 18px;
 }
 
 .taskColour {
-    -fx-text-fill: #D3D3D3;
-    -fx-font-size: 20px;
+    -fx-text-fill: #00000099;
+    -fx-font-size: 25px;
+}
+.taskColour:hover{
+    -fx-text-fill: #000000;
 }
 
 .taskComment {
     -fx-font-size: 18px;
+    -fx-text-fill: #00000099;
 }
 .taskComment:hover{
     -fx-font-weight: bold;
-    -fx-text-fill: #31AD03;
+    -fx-text-fill: #000000;
 }
 
 .detailsTitle {
@@ -157,3 +168,55 @@
     -fx-border-color: #cccccc;
     -fx-border-width: 0 0 0 1px;
 }
+
+/*Notes section*/
+
+#notesTitle{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+#addNote{
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+#addNote:hover{
+    -fx-text-fill: #31AD03;
+}
+
+
+.noteCard{
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 6px;
+
+    -fx-background-radius: 6px;
+
+    -fx-padding: 10px;
+}
+
+.noteTitle{
+    -fx-font-size: 18px;
+}
+
+.noteColour{
+    -fx-text-fill: #00000099;
+    -fx-font-size: 25px;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+.noteColour:hover{
+    -fx-text-fill: #000000;
+}
+
+.noteDelete{
+    -fx-background-color: transparent;
+    -fx-font-size: 34px;
+    -fx-cursor: hand;
+    -fx-text-fill: #d00000;
+}
+.noteDelete:hover{
+    -fx-text-fill: #800000;
+}
+

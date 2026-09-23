@@ -11,7 +11,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import nexusDesk.ColourPicker;
+import nexusDesk.database.OptionDatabase;
 import nexusDesk.database.ProjectDatabase;
+import nexusDesk.models.Colour;
 import nexusDesk.models.Project;
 
 import java.io.IOException;
@@ -27,6 +30,7 @@ public class ProjectsController {
     private StackPane mainContent;
 
     private final ProjectDatabase projectDatabase = new ProjectDatabase();
+    private final OptionDatabase optionDatabase = new OptionDatabase();
 
     public void setMainContent(StackPane mainContent) {
         this.mainContent = mainContent;
@@ -49,13 +53,39 @@ public class ProjectsController {
                 HBox projectCard = new HBox(10);
                 projectCard.getStyleClass().add("projectCard");
 
-                Button colourButton = new Button("●");
+                String colourHex = optionDatabase.getColourHex(project.getColourId());
+                projectCard.setStyle(
+                        "-fx-background-color: " + colourHex + "99" + ";"
+                );
+
+
+                Button colourButton = new Button("\uD83C\uDFA8");
                 colourButton.getStyleClass().add("colourButton");
 
-                Button projectButton = new Button(project.getTitle());
-                projectButton.getStyleClass().add("projectName");
+                colourButton.setOnAction(event -> {
+                    Colour selectedColour = ColourPicker.show();
 
-                projectButton.setOnAction(event -> {
+                    if (selectedColour != null) {
+
+                        try {
+                            optionDatabase.updateProjectColour(
+                                    project.getProjectId(),
+                                    selectedColour.getColourId()
+                            );
+
+                            loadProjects();
+
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
+                Button projectName = new Button(project.getTitle());
+                projectName.getStyleClass().add("projectName");
+
+                projectName.setOnAction(event -> {
 
                     try {
                         FXMLLoader loader = new FXMLLoader(
@@ -64,11 +94,14 @@ public class ProjectsController {
 
                         Node tasksView = loader.load();
 
-                        TasksController controller = loader.getController();
+                        TasksController tasksController = loader.getController();
 
-                        controller.setProject(
+                        tasksController.setMainContent(mainContent);
+
+                        tasksController.setProject(
                                 project.getProjectId(),
-                                project.getColourId()
+                                project.getColourId(),
+                                project.getTitle()
                         );
 
                         mainContent.getChildren().setAll(tasksView);
@@ -78,8 +111,8 @@ public class ProjectsController {
                     }
                 });
 
-                HBox.setHgrow(projectButton, Priority.ALWAYS);
-                projectButton.setMaxWidth(Double.MAX_VALUE);
+                HBox.setHgrow(projectName, Priority.ALWAYS);
+                projectName.setMaxWidth(Double.MAX_VALUE);
 
                 Button deleteButton = new Button("×");
                 deleteButton.getStyleClass().add("deleteButton");
@@ -95,7 +128,7 @@ public class ProjectsController {
 
                 projectCard.getChildren().addAll(
                         colourButton,
-                        projectButton,
+                        projectName,
                         deleteButton
                 );
 
@@ -107,7 +140,6 @@ public class ProjectsController {
         }
 
     }
-
 
     @FXML
     private void addProject() {

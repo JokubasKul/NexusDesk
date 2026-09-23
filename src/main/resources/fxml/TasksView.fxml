@@ -11,24 +11,21 @@
             stylesheets="@../css/style.css"
             styleClass="page">
 
-    <!-- Top -->
     <top>
         <VBox fx:id="taskHeader" spacing="10">
             <padding>
                 <Insets top="20" right="20" bottom="10" left="20"/>
             </padding>
 
-            <Label fx:id="taskSectionTitle" text="Personal Tasks"/>
+            <Label fx:id="taskSectionTitle" text="Personal Tasks" onMouseClicked="#returnToProjects"/>
 
             <Label fx:id="addTask" text="+Add Task" onMouseClicked="#addTask"/>
         </VBox>
     </top>
 
-    <!-- Main area -->
     <center>
         <BorderPane>
 
-            <!-- Task list -->
             <center>
                 <ScrollPane fitToWidth="true"
                             hbarPolicy="NEVER">
@@ -44,7 +41,6 @@
                 </ScrollPane>
             </center>
 
-            <!-- Future subtasks / comment editor -->
             <right>
                 <BorderPane fx:id="taskDetails" prefWidth="300" styleClass="taskDetails"/>
             </right>

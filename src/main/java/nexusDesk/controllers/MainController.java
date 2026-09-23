@@ -38,7 +38,8 @@ public class MainController {
             Node tasksView = loader.load();
 
             TasksController tasksController = loader.getController();
-            tasksController.setProject(0, 26);
+            tasksController.setMainContent(mainContent);
+            tasksController.setProject(0, 26, "Personal tasks");
 
             mainContent.getChildren().setAll(tasksView);
 
@@ -47,7 +48,22 @@ public class MainController {
         }
     }
     public void openNotes(){
-        System.out.println("Notes opened");
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/NotesView.fxml")
+            );
+
+            Node notesView = loader.load();
+
+            NotesController controller = loader.getController();
+            controller.setMainContent(mainContent);
+
+            mainContent.getChildren().setAll(notesView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void openBookmarks(){
         System.out.println("Bookmarks opened");
