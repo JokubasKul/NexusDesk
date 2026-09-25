@@ -32,6 +32,8 @@ public class NotesController {
     private final NoteDatabase noteDatabase = new NoteDatabase();
     private final OptionDatabase optionDatabase = new OptionDatabase();
 
+    private final ColourPicker colourPicker = new ColourPicker();
+
     @FXML
     public void initialize() {
         loadNotes();
@@ -51,9 +53,11 @@ public class NotesController {
 
             for (Note note : notes) {
 
-                HBox noteCard = new HBox(10);
-                noteCard.setAlignment(Pos.CENTER_LEFT);
+                VBox noteCard = new VBox(10);
                 noteCard.getStyleClass().add("noteCard");
+
+                HBox noteCardFunctionality = new HBox(10);
+                noteCardFunctionality.setAlignment(Pos.CENTER_LEFT);
 
                 noteCard.setOnMouseClicked(event -> openNote(note));
 
@@ -62,9 +66,20 @@ public class NotesController {
                         "-fx-background-color: " + colourHex + "99;"
                 );
 
+                String darkenedColour = colourPicker.darkenColour(colourHex);
+                noteCard.setOnMouseEntered(mouseEvent ->
+                        noteCard.setStyle(
+                                "-fx-background-color:"  + darkenedColour + "99;"
+                        )
+                );
+                noteCard.setOnMouseExited(mouseEvent ->
+                        noteCard.setStyle(
+                                "-fx-background-color:"  + colourHex + "99;"
+                        )
+                );
 
                 Label title = new Label(note.getTitle());
-                title.getStyleClass().add("noteTitle");
+                title.getStyleClass().add("noteName");
 
 
                 Region spacer = new Region();
@@ -120,11 +135,35 @@ public class NotesController {
                 });
 
 
-                noteCard.getChildren().addAll(
-                        colourButton,
+                noteCardFunctionality.getChildren().addAll(
                         title,
                         spacer,
+                        colourButton,
                         deleteButton
+                );
+
+                Label contentPreview = new Label();
+
+                String content = note.getContent();
+
+                if (content == null || content.isBlank()) {
+                    contentPreview.setText("");
+                } else {
+                    contentPreview.setText(
+                            content.length() > 100
+                                    ? content.substring(0, 100) + "..."
+                                    : content
+                    );
+                }
+                contentPreview.setWrapText(true);
+                contentPreview.setMaxHeight(360);
+                contentPreview.setMaxWidth(Double.MAX_VALUE);
+
+                contentPreview.getStyleClass().add("notePreview");
+
+                noteCard.getChildren().addAll(
+                        noteCardFunctionality,
+                        contentPreview
                 );
 
                 notesList.getChildren().add(noteCard);

@@ -20,7 +20,7 @@
                         left="20"/>
             </padding>
 
-            <Label fx:id="notesTitle" text="Notes" styleClass="section-title"/>
+            <Label fx:id="notesTitle" text="Notes"/>
 
             <Label fx:id="addNote" text="+ Add Note" styleClass="add-note" onMouseClicked="#addNote"/>
         </VBox>

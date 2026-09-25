@@ -32,6 +32,8 @@ public class ProjectsController {
     private final ProjectDatabase projectDatabase = new ProjectDatabase();
     private final OptionDatabase optionDatabase = new OptionDatabase();
 
+    private final ColourPicker colourPicker = new ColourPicker();
+
     public void setMainContent(StackPane mainContent) {
         this.mainContent = mainContent;
     }
@@ -56,6 +58,18 @@ public class ProjectsController {
                 String colourHex = optionDatabase.getColourHex(project.getColourId());
                 projectCard.setStyle(
                         "-fx-background-color: " + colourHex + "99" + ";"
+                );
+
+                String darkenedColour = colourPicker.darkenColour(colourHex);
+                projectCard.setOnMouseEntered(mouseEvent ->
+                        projectCard.setStyle(
+                                "-fx-background-color:"  + darkenedColour + "99;"
+                        )
+                );
+                projectCard.setOnMouseExited(mouseEvent ->
+                        projectCard.setStyle(
+                                "-fx-background-color:"  + colourHex + "99;"
+                        )
                 );
 
 
@@ -127,8 +141,8 @@ public class ProjectsController {
                 });
 
                 projectCard.getChildren().addAll(
-                        colourButton,
                         projectName,
+                        colourButton,
                         deleteButton
                 );
 

@@ -97,4 +97,17 @@ public class ColourPicker {
             return null;
         }
     }
+
+    public String darkenColour(String hex) {
+
+        int r = Integer.parseInt(hex.substring(1, 3), 16);
+        int g = Integer.parseInt(hex.substring(3, 5), 16);
+        int b = Integer.parseInt(hex.substring(5, 7), 16);
+
+        r = (int) (r * 0.8);
+        g = (int) (g * 0.8);
+        b = (int) (b * 0.8);
+
+        return String.format("#%02X%02X%02X", r, g, b);
+    }
 }

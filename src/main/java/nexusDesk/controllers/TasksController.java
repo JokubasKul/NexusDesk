@@ -6,7 +6,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 import nexusDesk.ColourPicker;
 import nexusDesk.database.OptionDatabase;
 import nexusDesk.database.ProjectDatabase;
@@ -23,12 +25,16 @@ public class TasksController {
 
     @FXML
     private VBox taskHeader;
+    @FXML
+    private HBox titleBox;
+    @FXML
+    private Label taskSectionTitle;
+    @FXML
+    private Button editTitleButton;
 
     private int projectId;
     private int projectColourId;
 
-    @FXML
-    private Label taskSectionTitle;
     @FXML
     private VBox tasksList;
     @FXML
@@ -42,14 +48,27 @@ public class TasksController {
 
     private final OptionDatabase optionDatabase = new OptionDatabase();
     private final TaskDatabase taskDatabase = new TaskDatabase();
+    private final ProjectDatabase projectDatabase = new ProjectDatabase();
+
+    private final ColourPicker colourPicker = new ColourPicker();
 
 
-    public void setProject(int projectId, int colourId, String title) {
+    public void setProject(int projectId, int colourId, String projectTitle) {
 
         this.projectId = projectId;
         this.projectColourId = colourId;
 
-        taskSectionTitle.setText(title);
+        taskSectionTitle.setText(projectTitle);
+
+        if (projectId == 0) {
+            taskSectionTitle.setText("Personal Tasks");
+            editTitleButton.setDisable(true);
+            editTitleButton.setVisible(false);
+        } else {
+            taskSectionTitle.setText(projectTitle);
+            editTitleButton.setDisable(false);
+        }
+
 
         try {
             String colour = optionDatabase.getColourHex(colourId);
@@ -63,26 +82,6 @@ public class TasksController {
         }
 
         loadTasks();
-    }
-
-    @FXML
-    private void returnToProjects() throws IOException {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/fxml/ProjectsView.fxml")
-            );
-
-            Node projectsView = loader.load();
-
-            ProjectsController projectsController = loader.getController();
-            projectsController.setMainContent(mainContent);
-
-            mainContent.getChildren().setAll(projectsView);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void loadTasks() {
@@ -101,6 +100,18 @@ public class TasksController {
                 String colourHex = optionDatabase.getColourHex(task.getColourId());
                 taskCard.setStyle(
                         "-fx-background-color: " + colourHex + "99" + ";"
+                );
+
+                String darkenedColour = colourPicker.darkenColour(colourHex);
+                taskCard.setOnMouseEntered(mouseEvent ->
+                        taskCard.setStyle(
+                                "-fx-background-color:"  + darkenedColour + "99;"
+                        )
+                );
+                taskCard.setOnMouseExited(mouseEvent ->
+                        taskCard.setStyle(
+                                "-fx-background-color:"  + colourHex + "99;"
+                        )
                 );
 
 
@@ -153,18 +164,15 @@ public class TasksController {
                     showComment(task);
                 });
 
-                String comment = task.getComment();
+                Label tooltipLabel = new Label(task.getComment());
+                tooltipLabel.setWrapText(true);
+                tooltipLabel.setPrefWidth(300);
 
-                String preview;
+                Tooltip commentTooltip = new Tooltip();
+                commentTooltip.setGraphic(tooltipLabel);
+                commentTooltip.setShowDelay(Duration.ZERO);
 
-                if (comment == null || comment.isBlank()) {
-                    preview = "No comment";
-                } else {
-                    preview = comment.length() > 50
-                            ? comment.substring(0, 50) + "..."
-                            : comment;
-                }
-                commentButton.setTooltip(new Tooltip(preview));
+                commentButton.setTooltip(commentTooltip);
 
                 Region spacer = new Region();
                 HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -274,6 +282,76 @@ public class TasksController {
         );
 
         taskDetails.setCenter(commentBox);
+    }
+
+    @FXML
+    private void returnToProjects() throws IOException {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/ProjectsView.fxml")
+            );
+
+            Node projectsView = loader.load();
+
+            ProjectsController projectsController = loader.getController();
+            projectsController.setMainContent(mainContent);
+
+            mainContent.getChildren().setAll(projectsView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void editProjectTitle() {
+
+        TextField titleField = new TextField(taskSectionTitle.getText());
+        titleField.setPrefWidth(200);
+        titleField.setStyle("-fx-font-size: 18px;");
+
+        int index = titleBox.getChildren().indexOf(taskSectionTitle);
+
+        titleBox.getChildren().set(index, titleField);
+
+        titleField.requestFocus();
+        titleField.selectAll();
+
+        titleField.setOnAction(event -> saveProjectTitle(titleField));
+
+        titleField.setOnKeyPressed(event -> {
+
+            if (event.getCode() == KeyCode.ESCAPE) {
+                titleBox.getChildren().set(index, taskSectionTitle);
+            }
+        });
+    }
+
+    private void saveProjectTitle(TextField titleField) {
+
+        String newTitle = titleField.getText().trim();
+
+        if (newTitle.isEmpty()) {
+            return;
+        }
+
+        try {
+
+            projectDatabase.updateProjectTitle(
+                    projectId,
+                    newTitle
+            );
+
+            taskSectionTitle.setText(newTitle);
+
+            int index = titleBox.getChildren().indexOf(titleField);
+
+            titleBox.getChildren().set(index, taskSectionTitle);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
