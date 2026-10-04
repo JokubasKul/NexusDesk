@@ -8,12 +8,16 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import nexusDesk.ColourPicker;
 import nexusDesk.database.OptionDatabase;
 import nexusDesk.database.ProjectDatabase;
+import nexusDesk.database.SubtaskDatabase;
 import nexusDesk.database.TaskDatabase;
 import nexusDesk.models.Colour;
+import nexusDesk.models.Subtask;
 import nexusDesk.models.Task;
 import nexusDesk.controllers.MainController;
 
@@ -48,6 +52,7 @@ public class TasksController {
 
     private final OptionDatabase optionDatabase = new OptionDatabase();
     private final TaskDatabase taskDatabase = new TaskDatabase();
+    private final SubtaskDatabase subtaskDatabase = new SubtaskDatabase();
     private final ProjectDatabase projectDatabase = new ProjectDatabase();
 
     private final ColourPicker colourPicker = new ColourPicker();
@@ -97,6 +102,10 @@ public class TasksController {
                 taskCard.setAlignment(Pos.CENTER_LEFT);
                 taskCard.getStyleClass().add("taskCard");
 
+                taskCard.setOnMouseClicked(event -> {
+                    showTaskDetails(task);
+                });
+
                 String colourHex = optionDatabase.getColourHex(task.getColourId());
                 taskCard.setStyle(
                         "-fx-background-color: " + colourHex + "99" + ";"
@@ -123,6 +132,7 @@ public class TasksController {
                     try {
                         taskDatabase.updateTaskCompletion(task.getTaskId());
                         tasksList.getChildren().remove(taskCard);
+                        playCompletionSound();
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -223,6 +233,263 @@ public class TasksController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void showTaskDetails(Task task) {
+
+        taskDetails.setTop(null);
+        taskDetails.setCenter(null);
+        taskDetails.setBottom(null);
+
+        VBox detailsBox = new VBox(15);
+        detailsBox.setPadding(new Insets(20));
+
+
+        HBox titleBox = new HBox(8);
+        titleBox.setAlignment(Pos.CENTER_LEFT);
+
+        Label taskName = new Label(task.getName());
+        taskName.getStyleClass().add("subtaskDetailsTitle");
+
+
+        Button editTaskButton = new Button("✎");
+        editTaskButton.getStyleClass().add("editTitleButton");
+
+        editTaskButton.setOnAction(event ->
+                editTaskName(task, taskName)
+        );
+
+
+        titleBox.getChildren().addAll(
+                taskName,
+                editTaskButton
+        );
+
+
+        VBox subtasksList = new VBox(8);
+
+        Label addSubtask = new Label("+ Add Subtask");
+        addSubtask.getStyleClass().add("addSubtask");
+
+        addSubtask.setOnMouseClicked(event ->
+                addSubtask(task, subtasksList)
+        );
+
+
+        detailsBox.getChildren().addAll(
+                titleBox,
+                addSubtask,
+                subtasksList
+        );
+
+        loadSubtasks(task, subtasksList);
+
+        taskDetails.setCenter(detailsBox);
+    }
+
+    private void loadSubtasks(Task task, VBox subtasksList) {
+
+        subtasksList.getChildren().clear();
+
+        try {
+            List<Subtask> subtasks = subtaskDatabase.getAllSubtasks(task.getTaskId());
+
+            for (Subtask subtask : subtasks) {
+
+                HBox subtaskBox = new HBox(8);
+                subtaskBox.setAlignment(Pos.CENTER_LEFT);
+                subtaskBox.getStyleClass().add("subtaskCard");
+
+
+                Button completeButton = new Button("○");
+                completeButton.getStyleClass().add("subtaskComplete");
+
+                completeButton.setOnAction(event -> {
+
+                    try {
+                        subtaskDatabase.updateSubtaskCompletion(subtask.getSubtaskId());
+
+                        loadSubtasks(task, subtasksList);
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+
+                Label subtaskName = new Label(subtask.getName());
+                subtaskName.getStyleClass().add("subtaskName");
+
+                TextField editName = new TextField(subtask.getName());
+                editName.setVisible(false);
+                editName.setManaged(false);
+
+
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+
+
+                Button editButton = new Button("✎");
+                editButton.getStyleClass().add("subtaskEdit");
+
+                editButton.setOnAction(event ->
+                        editSubtaskName(subtask, subtaskName, editName
+                        )
+                );
+
+
+                subtaskBox.getChildren().addAll(
+                        completeButton,
+                        subtaskName,
+                        editName,
+                        spacer,
+                        editButton
+                );
+
+                subtasksList.getChildren().add(subtaskBox);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addSubtask(Task task, VBox subtasksList) {
+
+        TextField textField = new TextField();
+        textField.setPromptText("Subtask name...");
+
+        textField.setOnAction(event -> {
+
+            String name = textField.getText().trim();
+
+            if (name.isEmpty()) {
+                subtasksList.getChildren().remove(textField);
+                return;
+            }
+
+            try {
+                subtaskDatabase.createSubtask(task.getTaskId(), name);
+
+                loadSubtasks(task, subtasksList);
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        subtasksList.getChildren().add(
+                0,
+                textField
+        );
+
+        textField.requestFocus();
+    }
+
+    private void editTaskName(Task task, Label taskName) {
+
+        TextField textField = new TextField(task.getName());
+
+        textField.setPrefWidth(200);
+
+        int index = ((HBox) taskName.getParent()).getChildren().indexOf(taskName);
+        HBox parent = (HBox) taskName.getParent();
+
+        parent.getChildren().set(index, textField);
+
+        textField.requestFocus();
+        textField.selectAll();
+
+        textField.setOnAction(event -> {
+
+            String newName = textField.getText().trim();
+
+            if (newName.isEmpty()) {
+                return;
+            }
+
+            try {
+                taskDatabase.updateTaskName(
+                        task.getTaskId(),
+                        newName
+                );
+
+                task.setName(newName);
+
+                parent.getChildren().set(
+                        index,
+                        taskName
+                );
+
+                taskName.setText(newName);
+                loadTasks();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                parent.getChildren().set(
+                        index,
+                        taskName
+                );
+            }
+        });
+    }
+
+    private void editSubtaskName(Subtask subtask, Label name, TextField editName) {
+
+        name.setVisible(false);
+        name.setManaged(false);
+
+        editName.setVisible(true);
+        editName.setManaged(true);
+
+        editName.requestFocus();
+        editName.selectAll();
+
+
+        editName.setOnAction(event -> {
+
+            String newName = editName.getText().trim();
+
+            if (!newName.isEmpty()) {
+
+                try {
+
+                    subtaskDatabase.updateSubtaskName(
+                            subtask.getSubtaskId(),
+                            newName
+                    );
+
+                    subtask.setName(newName);
+                    name.setText(newName);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            editName.setVisible(false);
+            editName.setManaged(false);
+
+            name.setVisible(true);
+            name.setManaged(true);
+        });
+
+        editName.setOnKeyPressed(event -> {
+
+            if (event.getCode() == KeyCode.ESCAPE) {
+
+                editName.setVisible(false);
+                editName.setManaged(false);
+
+                name.setVisible(true);
+                name.setManaged(true);
+            }
+        });
     }
 
     private void showComment(Task task) {
@@ -350,6 +617,24 @@ public class TasksController {
             titleBox.getChildren().set(index, taskSectionTitle);
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void playCompletionSound() {
+
+        try {
+
+            String sound = getClass()
+                    .getResource("/sounds/completeTask.mp3")
+                    .toExternalForm();
+
+            Media media = new Media(sound);
+            MediaPlayer mediaPlayer = new MediaPlayer(media);
+
+            mediaPlayer.play();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

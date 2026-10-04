@@ -3,13 +3,15 @@ package nexusDesk.models;
 public class Bookmark {
 
     private int bookmark_id;
+    private int colour_id;
     private String title;
     private String description;
     private int needsUrl;
     private String url;
 
-    public Bookmark(int bookmark_id, String title, String description, int needsUrl, String url) {
+    public Bookmark(int bookmark_id, int colour_id, String title, String description, int needsUrl, String url) {
         this.bookmark_id = bookmark_id;
+        this.colour_id = colour_id;
         this.title = title;
         this.description = description;
         this.needsUrl = needsUrl;
@@ -21,6 +23,13 @@ public class Bookmark {
     }
     public void setBookmarkId(int bookmark_id) {
         this.bookmark_id = bookmark_id;
+    }
+
+    public int getColourId() {
+        return colour_id;
+    }
+    public void setColourId(int colour_id) {
+        this.colour_id = colour_id;
     }
 
     public String getTitle() {
@@ -37,7 +46,7 @@ public class Bookmark {
         this.description = description;
     }
 
-    public int isNeedsUrl() {
+    public int getNeedsUrl() {
         return needsUrl;
     }
     public void setNeedsUrl(int needsUrl) {

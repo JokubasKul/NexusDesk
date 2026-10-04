@@ -40,6 +40,7 @@
     -fx-background-color: transparent;
 
     -fx-font-size: 20px;
+    -fx-font-weight: bold;
 
     -fx-alignment: CENTER_LEFT;
 
@@ -125,6 +126,8 @@
     -fx-background-radius: 6px;
 
     -fx-padding: 10px;
+
+    -fx-cursor: hand;
 }
 
 .taskComplete,
@@ -145,6 +148,7 @@
 
 .taskName{
     -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
 
 .taskColour {
@@ -179,6 +183,60 @@
     -fx-border-width: 0 0 0 1px;
 }
 
+
+/*Subtasks section*/
+
+.subtaskCard{
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 6px;
+
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 6px;
+
+    -fx-padding: 2px;
+}
+
+.subtaskDetailsTitle {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.addSubtask{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.addSubtask:hover{
+    -fx-text-fill: #31AD03;
+}
+
+.subtaskName{
+    -fx-font-size: 14px;
+}
+
+.subtaskEdit{
+    -fx-background-color: transparent;
+    -fx-text-fill: #00000099;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+}
+.subtaskEdit:hover{
+    -fx-text-fill: #000000;
+}
+
+.subtaskComplete {
+    -fx-font-size: 16px;
+    -fx-text-fill: #00000099;
+
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.subtaskComplete:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
 /*Notes section*/
 
 #notesTitle{
@@ -210,6 +268,7 @@
 
 .noteName{
     -fx-font-size: 18px;
+    -fx-font-weight: bold;
 }
 #noteContent{
     -fx-font-size: 18px;
@@ -245,5 +304,132 @@
     -fx-cursor: hand;
 }
 
+
 /*Bookmarks section*/
 
+#bookmarksTitle{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+#addBookmark{
+    -fx-font-size: 16px;
+    -fx-alignment: CENTER;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+#addBookmark:hover{
+    -fx-text-fill: #31AD03;
+}
+
+
+.bookmarkCard{
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 6px;
+
+    -fx-background-radius: 6px;
+
+    -fx-padding: 10px;
+
+    -fx-cursor: hand;
+}
+
+.bookmarkName{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+#bookmarkDescription{
+    -fx-font-size: 18px;
+    -fx-padding: 10px;
+}
+
+.bookmarkColour{
+    -fx-text-fill: #00000099;
+    -fx-font-size: 25px;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+.bookmarkColour:hover{
+    -fx-text-fill: #000000;
+}
+
+.bookmarkWebsite{
+    -fx-text-fill: #00000099;
+    -fx-font-size: 25px;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+.bookmarkWebsite:hover{
+    -fx-text-fill: #000000;
+}
+
+.bookmarkEdit{
+    -fx-text-fill: #00000099;
+    -fx-font-size: 30px;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+.bookmarkEdit:hover{
+    -fx-text-fill: #000000;
+}
+
+.bookmarkDelete{
+    -fx-background-color: transparent;
+    -fx-font-size: 34px;
+    -fx-cursor: hand;
+    -fx-text-fill: #d00000;
+}
+.bookmarkDelete:hover{
+    -fx-text-fill: #800000;
+}
+
+
+/*converters section*/
+
+#convertersTitle{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.converterCard{
+    -fx-background-color: #eeeeee;
+
+    -fx-background-radius: 8px;
+
+    -fx-border-radius: 8px;
+    -fx-border-color: #cccccc;
+
+    -fx-padding: 20px;
+}
+
+.converterLabel{
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.converterComboBox{
+    -fx-background-color: white;
+
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+
+    -fx-font-size: 15px;
+
+    -fx-cursor: hand;
+}
+
+.converterInput{
+    -fx-background-color: white;
+
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+
+    -fx-font-size: 16px;
+}
+
+.converterResult{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}

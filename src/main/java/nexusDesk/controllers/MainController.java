@@ -66,12 +66,39 @@ public class MainController {
         }
     }
     public void openBookmarks(){
-        System.out.println("Bookmarks opened");
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/BookmarksView.fxml")
+            );
+
+            Node bookmarksView = loader.load();
+
+            BookmarksController controller = loader.getController();
+            controller.setMainContent(mainContent);
+
+            mainContent.getChildren().setAll(bookmarksView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void openConverters(){
-        System.out.println("Converters opened");
-    }
-    public void openCalculator(){
-        System.out.println("Calculator opened");
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/ConvertersView.fxml")
+            );
+
+            Node convertersView = loader.load();
+
+            ConvertersController controller = loader.getController();
+            controller.setMainContent(mainContent);
+
+            mainContent.getChildren().setAll(convertersView);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

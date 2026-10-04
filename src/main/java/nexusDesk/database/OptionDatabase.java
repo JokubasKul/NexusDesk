@@ -94,4 +94,18 @@ public class OptionDatabase {
         }
     }
 
+    public void updateBookmarkColour(int bookmarkId, int colourId) throws SQLException {
+
+        String sql = "UPDATE bookmarks SET colour_id = ? WHERE bookmark_id = ?";
+
+        try (Connection connection = DatabaseConnection.connect();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            statement.setInt(1, colourId);
+            statement.setInt(2, bookmarkId);
+
+            statement.executeUpdate();
+        }
+    }
+
 }

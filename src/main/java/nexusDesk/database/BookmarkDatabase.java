@@ -13,7 +13,7 @@ public class BookmarkDatabase {
 
 
     public void createBookmark(String title, String description, int needsUrl, String url) throws SQLException{
-        String sql="INSERT INTO bookmarks(title, description, needsUrl, url) VALUES(?, ?, ?, ?)";
+        String sql="INSERT INTO bookmarks(colour_id, title, description, needsUrl, url) VALUES(26, ?, ?, ?, ?)";
 
         try (Connection connection = DatabaseConnection.connect();
         PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -41,6 +41,7 @@ public class BookmarkDatabase {
             while (result.next()) {
                 Bookmark bookmark = new Bookmark(
                         result.getInt("bookmark_id"),
+                        result.getInt("colour_id"),
                         result.getString("title"),
                         result.getString("description"),
                         result.getInt("needsUrl"),

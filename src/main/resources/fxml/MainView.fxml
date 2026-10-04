@@ -39,8 +39,6 @@
 
             <Button styleClass="menuButton" text="Converters" maxWidth="Infinity" onAction="#openConverters"/>
 
-            <Button styleClass="menuButton" text="Calculator" maxWidth="Infinity" onAction="#openCalculator"/>
-
         </VBox>
     </left>
 

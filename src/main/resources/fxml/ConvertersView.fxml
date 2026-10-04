@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="nexusDesk.controllers.ConvertersController"
+            stylesheets="@../css/style.css"
+            styleClass="page">
+
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label fx:id="convertersTitle" text="Converters"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox alignment="TOP_CENTER">
+
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <VBox fx:id="converterCard" spacing="15" maxWidth="500" styleClass="converterCard">
+
+                <Label text="Converter" styleClass="converterLabel"/>
+
+                <ComboBox fx:id="converterType" promptText="Select converter" prefWidth="460" styleClass="converterComboBox"/>
+
+                <GridPane hgap="15" vgap="10">
+
+                    <Label text="From:" styleClass="converterLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+                    <ComboBox fx:id="fromUnit" prefWidth="210" styleClass="converterComboBox" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+                    <Label text="To:" styleClass="converterLabel" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <ComboBox fx:id="toUnit" prefWidth="210" styleClass="converterComboBox" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                </GridPane>
+
+                <Label text="Value:" styleClass="converterLabel"/>
+
+                <TextField fx:id="inputValue" promptText="Enter value" styleClass="converterInput"/>
+
+                <Label text="Result:" styleClass="converterLabel"/>
+
+                <Label fx:id="result" text="0" styleClass="converterResult"/>
+
+            </VBox>
+
+        </VBox>
+    </center>
+
+</BorderPane>
