@@ -1,5 +1,8 @@
 package nexusDesk.models;
 
+/**
+ * Model of notes database table
+ */
 public class Note {
 
     private int note_id;

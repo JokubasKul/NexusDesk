@@ -7,11 +7,17 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
+/**
+ * Functionality of MainView.fxml which has the main menu(side bar and top bar). Inside are the others
+ */
 public class MainController {
 
     @FXML
     public StackPane mainContent;
 
+    /**
+     * Opens ProjectsView.fxml
+     */
     public void openProjects(){
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -28,6 +34,9 @@ public class MainController {
             e.printStackTrace();
         };
     }
+    /**
+     * Opens TasksView.fxml
+     */
     @FXML
     public void openTasks() {
         try {
@@ -47,6 +56,9 @@ public class MainController {
             e.printStackTrace();
         }
     }
+    /**
+     * Opens NotesView.fxml
+     */
     public void openNotes(){
         try {
 
@@ -65,6 +77,9 @@ public class MainController {
             e.printStackTrace();
         }
     }
+    /**
+     * Opens BookmarksView.fxml
+     */
     public void openBookmarks(){
         try {
 
@@ -83,6 +98,9 @@ public class MainController {
             e.printStackTrace();
         }
     }
+    /**
+     * Opens ConvertersView.fxml
+     */
     public void openConverters(){
         try {
 

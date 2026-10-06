@@ -6,6 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
+/**
+ * Functionality of Converters module
+ */
 public class ConvertersController {
 
     private StackPane mainContent;
@@ -25,6 +28,9 @@ public class ConvertersController {
     @FXML
     private Label result;
 
+    /**
+     * Sets up the main functionality of the page
+     */
     @FXML
     public void initialize() {
 
@@ -53,6 +59,9 @@ public class ConvertersController {
         );
     }
 
+    /**
+     * Loads the right unit upon its selection
+     */
     private void loadUnits() {
 
         fromUnit.getItems().clear();
@@ -88,6 +97,9 @@ public class ConvertersController {
         }
     }
 
+    /**
+     * Loads the length units
+     */
     private void loadLengthUnits() {
 
         fromUnit.getItems().addAll(
@@ -106,6 +118,9 @@ public class ConvertersController {
         );
     }
 
+    /**
+     * Loads the weight units
+     */
     private void loadWeightUnits() {
 
         fromUnit.getItems().addAll(
@@ -121,6 +136,9 @@ public class ConvertersController {
         );
     }
 
+    /**
+     * Loads the temperature units
+     */
     private void loadTemperatureUnits() {
 
         fromUnit.getItems().addAll(
@@ -134,6 +152,9 @@ public class ConvertersController {
         );
     }
 
+    /**
+     * Loads the time units
+     */
     private void loadTimeUnits() {
 
         fromUnit.getItems().addAll(
@@ -148,6 +169,9 @@ public class ConvertersController {
         );
     }
 
+    /**
+     * Loads the data size units
+     */
     private void loadDataSizeUnits() {
 
         fromUnit.getItems().addAll(
@@ -163,6 +187,9 @@ public class ConvertersController {
         );
     }
 
+    /**
+     * Loads the speed units
+     */
     private void loadSpeedUnits() {
 
         fromUnit.getItems().addAll(
@@ -176,7 +203,9 @@ public class ConvertersController {
         );
     }
 
-
+    /**
+     * Converts the values
+     */
     private void convert() {
 
         String input = inputValue.getText().trim();
@@ -237,6 +266,10 @@ public class ConvertersController {
         }
     }
 
+    /**
+     * Formats the results
+     * @param value the value that is being formated
+     */
     private String formatResult(double value) {
 
         if (value == (long) value) {
@@ -248,6 +281,12 @@ public class ConvertersController {
                 .replaceAll("\\.$", "");
     }
 
+    /**
+     * Converts the length units
+     * @param from the unit that is being converted from
+     * @param value the value that is being converted
+     * @param to the unit that it is being converted to
+     */
     private double convertLength(double value, String from, String to) {
 
         double meters;
@@ -297,6 +336,12 @@ public class ConvertersController {
         };
     }
 
+    /**
+     * Converts the weight units
+     * @param from the unit that is being converted from
+     * @param value the value that is being converted
+     * @param to the unit that it is being converted to
+     */
     private double convertWeight(double value, String from, String to) {
 
         double kilograms;
@@ -332,6 +377,12 @@ public class ConvertersController {
         };
     }
 
+    /**
+     * Converts the temperature units
+     * @param from the unit that is being converted from
+     * @param value the value that is being converted
+     * @param to the unit that it is being converted to
+     */
     private double convertTemperature(double value, String from, String to) {
 
         double celsius;
@@ -359,6 +410,12 @@ public class ConvertersController {
         };
     }
 
+    /**
+     * Converts the time units
+     * @param from the unit that is being converted from
+     * @param value the value that is being converted
+     * @param to the unit that it is being converted to
+     */
     private double convertTime(double value, String from, String to) {
 
         double seconds;
@@ -390,6 +447,12 @@ public class ConvertersController {
         };
     }
 
+    /**
+     * Converts the data size units
+     * @param from the unit that is being converted from
+     * @param value the value that is being converted
+     * @param to the unit that it is being converted to
+     */
     private double convertDataSize(double value, String from, String to) {
 
         // 1 KB = 1024 bytes
@@ -430,6 +493,12 @@ public class ConvertersController {
         };
     }
 
+    /**
+     * Converts the speed units
+     * @param from the unit that is being converted from
+     * @param value the value that is being converted
+     * @param to the unit that it is being converted to
+     */
     private double convertSpeed(double value, String from, String to) {
 
         double metersPerSecond;

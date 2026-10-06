@@ -1,5 +1,8 @@
 package nexusDesk.models;
 
+/**
+ * Model of projects database table
+ */
 public class Project {
 
     private int project_id;

@@ -16,10 +16,12 @@ import java.net.URI;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Functionality of Bookmarks module
+ */
 public class BookmarksController {
 
     private StackPane mainContent;
-
     public void setMainContent(StackPane mainContent) {
         this.mainContent = mainContent;
     }
@@ -37,6 +39,9 @@ public class BookmarksController {
         loadBookmarks();
     }
 
+    /**
+     * Loops through all the bookmarks and sets them up
+     */
     private void loadBookmarks() {
 
         bookmarksList.getChildren().clear();
@@ -186,6 +191,10 @@ public class BookmarksController {
         }
     }
 
+    /**
+     * Opens a website
+     * @param url the url of the website
+     */
     private void openWebsite(String url) {
 
         if (url == null || url.isBlank()) {
@@ -202,6 +211,9 @@ public class BookmarksController {
         }
     }
 
+    /**
+     * Creates a VBox where the new bookmark is added
+     */
     @FXML
     private void addBookmark() {
 
@@ -278,6 +290,9 @@ public class BookmarksController {
         titleField.requestFocus();
     }
 
+    /**
+     * Saves the bookmark in the database and reloads the bookmarksList
+     */
     private void saveBookmark(VBox addBox, TextField titleField, TextArea descriptionField, CheckBox needsUrlCheckBox, TextField urlField) {
 
         String title = titleField.getText().trim();
@@ -313,6 +328,9 @@ public class BookmarksController {
         }
     }
 
+    /**
+     * Updates the bookmark
+     */
     private void editBookmark(Bookmark bookmark, VBox bookmarkCard) {
 
         VBox editBox = new VBox(10);
@@ -401,15 +419,10 @@ public class BookmarksController {
         titleField.selectAll();
     }
 
-    private void saveEditedBookmark(
-            Bookmark bookmark,
-            VBox bookmarkCard,
-            VBox editBox,
-            TextField titleField,
-            TextArea descriptionField,
-            CheckBox needsUrlCheckBox,
-            TextField urlField
-    ) {
+    /**
+     * Saves the edited bookmark in the database
+     */
+    private void saveEditedBookmark(Bookmark bookmark, VBox bookmarkCard, VBox editBox, TextField titleField, TextArea descriptionField, CheckBox needsUrlCheckBox, TextField urlField) {
 
         String title = titleField.getText().trim();
 

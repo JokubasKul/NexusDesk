@@ -20,6 +20,9 @@ import nexusDesk.models.Note;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Functionality of Notes module's note
+ */
 public class NoteController {
 
     @FXML
@@ -33,18 +36,21 @@ public class NoteController {
     @FXML
     private TextArea noteContent;
 
-    private StackPane mainContent;
-
     private Note note;
     private final NoteDatabase noteDatabase = new NoteDatabase();
     private final OptionDatabase optionDatabase = new OptionDatabase();
 
     private final PauseTransition saveDelay = new PauseTransition(Duration.millis(500));
 
+    private StackPane mainContent;
     public void setMainContent(StackPane mainContent) {
         this.mainContent = mainContent;
     }
 
+    /**
+     * Sets up the note
+     * @param note the note we are setting up
+     */
     public void setNote(Note note) {
 
         this.note = note;
@@ -75,6 +81,10 @@ public class NoteController {
         );
     }
 
+    /**
+     * Updates the content in the database
+     * @param content the content
+     */
     private void saveContent(String content) {
 
         try {
@@ -91,6 +101,9 @@ public class NoteController {
         }
     }
 
+    /**
+     * Returns to the notes page
+     */
     @FXML private void returnToNotes() {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -108,6 +121,9 @@ public class NoteController {
         }
     }
 
+    /**
+     * Updates the note title
+     */
     @FXML
     private void editNoteTitle() {
 
@@ -134,6 +150,10 @@ public class NoteController {
         });
     }
 
+    /**
+     * Saves the changes to the database
+     * @param titleField the new name
+     */
     private void saveNoteTitle(TextField titleField) {
 
         String newTitle = titleField.getText().trim();

@@ -1,5 +1,8 @@
 package nexusDesk.models;
 
+/**
+ * Model of bookmarks database table
+ */
 public class Bookmark {
 
     private int bookmark_id;

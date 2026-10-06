@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * All the database operations of the colours table and possibly others
+ */
 public class OptionDatabase {
 
     public String getColourHex(int colourId) throws SQLException {

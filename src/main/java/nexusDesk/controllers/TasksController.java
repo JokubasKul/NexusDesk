@@ -25,6 +25,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Functionality of Tasks module
+ */
 public class TasksController {
 
     @FXML
@@ -45,7 +48,6 @@ public class TasksController {
     private BorderPane taskDetails;
 
     private StackPane mainContent;
-
     public void setMainContent(StackPane mainContent) {
         this.mainContent = mainContent;
     }
@@ -57,7 +59,12 @@ public class TasksController {
 
     private final ColourPicker colourPicker = new ColourPicker();
 
-
+    /**
+     * Sets up the tasks page
+     * @param projectId the id of the project, needed to tell if the project is for personal tasks(projectId=0) or project tasks
+     * @param colourId the colour id of the project needed to decide the colour of the header
+     * @param projectTitle the project title
+     */
     public void setProject(int projectId, int colourId, String projectTitle) {
 
         this.projectId = projectId;
@@ -89,6 +96,9 @@ public class TasksController {
         loadTasks();
     }
 
+    /**
+     * Loops through all the tasks and sets them up properly
+     */
     private void loadTasks() {
 
         tasksList.getChildren().clear();
@@ -203,6 +213,9 @@ public class TasksController {
         }
     }
 
+    /**
+     * Adds a new task
+     */
     @FXML
     private void addTask() {
 
@@ -216,6 +229,10 @@ public class TasksController {
         textField.requestFocus();
     }
 
+    /**
+     * Saves new task to the database and updates the task list
+     * @param textField the name of the new task
+     */
     private void saveTask(TextField textField) {
 
         String name = textField.getText().trim();
@@ -235,6 +252,10 @@ public class TasksController {
         }
     }
 
+    /**
+     * Shows the subtasks in the detailsBox
+     * @param task the task whose subtasks we are showing
+     */
     private void showTaskDetails(Task task) {
 
         taskDetails.setTop(null);
@@ -287,6 +308,11 @@ public class TasksController {
         taskDetails.setCenter(detailsBox);
     }
 
+    /**
+     * Loops through all the subtasks and sets them up
+     * @param task the task whose subtasks we are loading
+     * @param subtasksList the VBox where the subtasks are stored
+     */
     private void loadSubtasks(Task task, VBox subtasksList) {
 
         subtasksList.getChildren().clear();
@@ -354,6 +380,11 @@ public class TasksController {
         }
     }
 
+    /**
+     * Adds a new subtask to the database and updates the list
+     * @param task the task whose subtasks we are managing
+     * @param subtasksList the VBox where the subtasks are managed
+     */
     private void addSubtask(Task task, VBox subtasksList) {
 
         TextField textField = new TextField();
@@ -386,6 +417,10 @@ public class TasksController {
         textField.requestFocus();
     }
 
+    /**
+     * Changes the name of the task
+     * @param task the task whose name we are changing
+     */
     private void editTaskName(Task task, Label taskName) {
 
         TextField textField = new TextField(task.getName());
@@ -439,6 +474,12 @@ public class TasksController {
         });
     }
 
+    /**
+     * Changes the subtask's name
+     * @param subtask the subtask whose name we are changing
+     * @param name the current name of the subtask
+     * @param editName the textField where the new name is typed in
+     */
     private void editSubtaskName(Subtask subtask, Label name, TextField editName) {
 
         name.setVisible(false);
@@ -492,6 +533,10 @@ public class TasksController {
         });
     }
 
+    /**
+     * Shows the comment in detailsBox
+     * @param task the task whose comment we are looking at
+     */
     private void showComment(Task task) {
 
         taskDetails.setTop(null);
@@ -551,6 +596,9 @@ public class TasksController {
         taskDetails.setCenter(commentBox);
     }
 
+    /**
+     * Loads the projects page
+     */
     @FXML
     private void returnToProjects() throws IOException {
 
@@ -571,6 +619,9 @@ public class TasksController {
         }
     }
 
+    /**
+     * Changes the project name
+     */
     @FXML
     private void editProjectTitle() {
 
@@ -595,6 +646,9 @@ public class TasksController {
         });
     }
 
+    /**
+     * Changes the project name in the database
+     */
     private void saveProjectTitle(TextField titleField) {
 
         String newTitle = titleField.getText().trim();
@@ -621,6 +675,9 @@ public class TasksController {
         }
     }
 
+    /**
+     * Plays a sound when completing a task
+     */
     private void playCompletionSound() {
 
         try {

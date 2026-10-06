@@ -22,18 +22,20 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Functionality of Projects module
+ */
 public class ProjectsController {
 
     @FXML
     private VBox projectsList;
-
-    private StackPane mainContent;
 
     private final ProjectDatabase projectDatabase = new ProjectDatabase();
     private final OptionDatabase optionDatabase = new OptionDatabase();
 
     private final ColourPicker colourPicker = new ColourPicker();
 
+    private StackPane mainContent;
     public void setMainContent(StackPane mainContent) {
         this.mainContent = mainContent;
     }
@@ -43,6 +45,9 @@ public class ProjectsController {
         loadProjects();
     }
 
+    /**
+     * Loops through all the projects in the table and sets them up properly
+     */
     private void loadProjects() {
 
         projectsList.getChildren().clear();
@@ -155,6 +160,9 @@ public class ProjectsController {
 
     }
 
+    /**
+     * Adds a new project
+     */
     @FXML
     private void addProject() {
 
@@ -168,6 +176,10 @@ public class ProjectsController {
 
     }
 
+    /**
+     * Adds the project to the database and updates the list
+     * @param textField the name of the new project
+     */
     private void saveProject(TextField textField) {
 
         String title = textField.getText().trim();

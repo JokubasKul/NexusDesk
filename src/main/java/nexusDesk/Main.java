@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Class responsible for launching the application
+ */
 public class Main extends Application {
 
     @Override

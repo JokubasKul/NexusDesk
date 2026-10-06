@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * All the database operations of the subtasks table
+ */
 public class SubtaskDatabase {
 
     public void createSubtask(int task_id, String name) throws SQLException {

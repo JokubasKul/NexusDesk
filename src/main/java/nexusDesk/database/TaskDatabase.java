@@ -6,6 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * All the database operations of the tasks table
+ */
 public class TaskDatabase {
 
 

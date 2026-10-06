@@ -1,5 +1,8 @@
 package nexusDesk.models;
 
+/**
+ * Model of colours database table
+ */
 public class Colour {
 
     private int colour_id;

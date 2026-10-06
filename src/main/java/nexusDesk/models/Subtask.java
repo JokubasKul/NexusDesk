@@ -1,5 +1,8 @@
 package nexusDesk.models;
 
+/**
+ * Model of subtasks database table
+ */
 public class Subtask {
 
     private int subtask_id;

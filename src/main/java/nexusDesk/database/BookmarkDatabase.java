@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * All the database operations of the bookmarks table
+ */
 public class BookmarkDatabase {
-
 
     public void createBookmark(String title, String description, int needsUrl, String url) throws SQLException{
         String sql="INSERT INTO bookmarks(colour_id, title, description, needsUrl, url) VALUES(26, ?, ?, ?, ?)";

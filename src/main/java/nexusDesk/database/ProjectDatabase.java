@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * All the database operations of the projects table
+ */
 public class ProjectDatabase {
-
 
     public void createProject(String title) throws SQLException{
         String sql="INSERT INTO projects(title) VALUES(?)";

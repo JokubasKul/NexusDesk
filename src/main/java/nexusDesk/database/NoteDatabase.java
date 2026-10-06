@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * All the database operations of the notes table
+ */
 public class NoteDatabase {
-
 
     public void createNote(String title) throws SQLException {
 

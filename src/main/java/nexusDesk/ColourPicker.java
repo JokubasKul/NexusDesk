@@ -12,22 +12,25 @@ import nexusDesk.models.Colour;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Class responsible for colour related operations
+ */
 public class ColourPicker {
 
+    /**
+     * Colour picker dialog
+     */
     public static Colour show() {
 
         try {
             OptionDatabase optionDatabase = new OptionDatabase();
-
             List<Colour> colours = optionDatabase.getAllColours();
-
             Dialog<Colour> dialog = new Dialog<>();
 
             dialog.setTitle("Select Colour");
             dialog.setHeaderText("Choose a colour");
 
-            ButtonType cancel =
-                    new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            ButtonType cancel = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
             dialog.getDialogPane().getButtonTypes().add(cancel);
 
@@ -98,6 +101,11 @@ public class ColourPicker {
         }
     }
 
+    /**
+     * Method responsible for darkening a given colour
+     * @param hex the colour that is to be darkened
+     * @return the darkened colour
+     */
     public String darkenColour(String hex) {
 
         int r = Integer.parseInt(hex.substring(1, 3), 16);

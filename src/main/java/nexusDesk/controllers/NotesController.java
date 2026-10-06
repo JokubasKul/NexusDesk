@@ -22,27 +22,32 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Functionality of Notes module
+ */
 public class NotesController {
 
     @FXML
     private VBox notesList;
-
-    private StackPane mainContent;
 
     private final NoteDatabase noteDatabase = new NoteDatabase();
     private final OptionDatabase optionDatabase = new OptionDatabase();
 
     private final ColourPicker colourPicker = new ColourPicker();
 
+    private StackPane mainContent;
+    public void setMainContent(StackPane mainContent) {
+        this.mainContent = mainContent;
+    }
+
     @FXML
     public void initialize() {
         loadNotes();
     }
 
-    public void setMainContent(StackPane mainContent) {
-        this.mainContent = mainContent;
-    }
-
+    /**
+     * Loops throught the notes and sets them up
+     */
     private void loadNotes() {
 
         notesList.getChildren().clear();
@@ -174,6 +179,9 @@ public class NotesController {
         }
     }
 
+    /**
+     * Adds a new note
+     */
     @FXML
     private void addNote() {
 
@@ -187,6 +195,10 @@ public class NotesController {
         textField.requestFocus();
     }
 
+    /**
+     * Saves the note in the database and reloads the notesList
+     * @param textField the title of the new note
+     */
     private void saveNote(TextField textField) {
 
         String title = textField.getText().trim();
@@ -211,6 +223,10 @@ public class NotesController {
         }
     }
 
+    /**
+     * Loads the note so it can be edited
+     * @param note the note we are entering
+     */
     private void openNote(Note note) {
 
         try {
