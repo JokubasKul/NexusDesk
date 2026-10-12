@@ -136,6 +136,7 @@ public class TasksController {
 
                 Button completeButton = new Button("○");
                 completeButton.getStyleClass().add("taskComplete");
+                completeButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 completeButton.setOnAction(event -> {
 
@@ -151,10 +152,12 @@ public class TasksController {
 
                 Label taskName = new Label(task.getName());
                 taskName.getStyleClass().add("taskName");
+                taskName.setWrapText(true);
 
 
                 Button colourButton = new Button("\uD83C\uDFA8");
                 colourButton.getStyleClass().add("taskColour");
+                colourButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 colourButton.setOnAction(event -> {
                     Colour selectedColour = ColourPicker.show();
@@ -178,6 +181,7 @@ public class TasksController {
 
                 Button commentButton = new Button("\ud83d\udcc4");
                 commentButton.getStyleClass().add("taskComment");
+                commentButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 commentButton.setOnMouseClicked(event -> {
                     event.consume();

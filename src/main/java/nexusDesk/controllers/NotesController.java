@@ -93,6 +93,7 @@ public class NotesController {
 
                 Button colourButton = new Button("\uD83C\uDFA8");
                 colourButton.getStyleClass().add("noteColour");
+                colourButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 colourButton.setStyle(
                         "-fx-background-color: transparent;"
@@ -121,6 +122,7 @@ public class NotesController {
 
                 Button deleteButton = new Button("✕");
                 deleteButton.getStyleClass().add("noteDelete");
+                deleteButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 deleteButton.setOnAction(event -> {
 

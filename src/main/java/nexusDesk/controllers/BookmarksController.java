@@ -89,8 +89,8 @@ public class BookmarksController {
 
 
                 Button colourButton = new Button("🎨");
-
                 colourButton.getStyleClass().add("bookmarkColour");
+                colourButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 colourButton.setOnAction(event -> {
 
@@ -112,8 +112,8 @@ public class BookmarksController {
 
 
                 Button editButton = new Button("✎");
-
                 editButton.getStyleClass().add("bookmarkEdit");
+                editButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 editButton.setOnAction(event ->
                         editBookmark(bookmark, bookmarkCard)
@@ -122,6 +122,7 @@ public class BookmarksController {
 
                 Button deleteButton = new Button("✕");
                 deleteButton.getStyleClass().add("bookmarkDelete");
+                deleteButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 deleteButton.setOnAction(event -> {
 
@@ -144,8 +145,8 @@ public class BookmarksController {
 
                 if (bookmark.getNeedsUrl() == 1) {
                     Button websiteButton = new Button("🌐");
-
                     websiteButton.getStyleClass().add("bookmarkWebsite");
+                    websiteButton.setMinWidth(Region.USE_PREF_SIZE);
 
                     websiteButton.setOnAction(event ->
                             openWebsite(bookmark.getUrl())

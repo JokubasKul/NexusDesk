@@ -7,10 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import nexusDesk.ColourPicker;
 import nexusDesk.database.OptionDatabase;
 import nexusDesk.database.ProjectDatabase;
@@ -80,6 +77,7 @@ public class ProjectsController {
 
                 Button colourButton = new Button("\uD83C\uDFA8");
                 colourButton.getStyleClass().add("colourButton");
+                colourButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 colourButton.setOnAction(event -> {
                     Colour selectedColour = ColourPicker.show();
@@ -135,6 +133,7 @@ public class ProjectsController {
 
                 Button deleteButton = new Button("×");
                 deleteButton.getStyleClass().add("deleteButton");
+                deleteButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 deleteButton.setOnAction(event -> {
                     try {
