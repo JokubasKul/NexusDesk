@@ -36,7 +36,7 @@
         <BorderPane>
 
             <center>
-                <ScrollPane fitToWidth="true"
+                <ScrollPane fx:id="tasksScrollpane" fitToWidth="true"
                             hbarPolicy="NEVER">
 
                     <VBox fx:id="tasksList" spacing="10">

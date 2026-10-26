@@ -45,6 +45,8 @@ public class TasksController {
     @FXML
     private VBox tasksList;
     @FXML
+    private ScrollPane tasksScrollpane;
+    @FXML
     private BorderPane taskDetails;
 
     private StackPane mainContent;
@@ -103,6 +105,10 @@ public class TasksController {
 
         tasksList.getChildren().clear();
 
+        tasksScrollpane.setOnMouseClicked(event ->{
+            taskDetails.getChildren().clear();
+        });
+
         try {
             List<Task> tasks = taskDatabase.getAllProjectTasks(projectId);
 
@@ -113,6 +119,7 @@ public class TasksController {
                 taskCard.getStyleClass().add("taskCard");
 
                 taskCard.setOnMouseClicked(event -> {
+                    event.consume();
                     showTaskDetails(task);
                 });
 
@@ -153,6 +160,7 @@ public class TasksController {
                 Label taskName = new Label(task.getName());
                 taskName.getStyleClass().add("taskName");
                 taskName.setWrapText(true);
+                taskName.setMinWidth(120);
 
 
                 Button colourButton = new Button("\uD83C\uDFA8");
