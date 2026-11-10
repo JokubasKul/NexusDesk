@@ -160,7 +160,7 @@ public class TasksController {
                 Label taskName = new Label(task.getName());
                 taskName.getStyleClass().add("taskName");
                 taskName.setWrapText(true);
-                taskName.setMinWidth(120);
+                taskName.setMinWidth(Region.USE_PREF_SIZE);
 
 
                 Button colourButton = new Button("\uD83C\uDFA8");
@@ -283,10 +283,13 @@ public class TasksController {
 
         Label taskName = new Label(task.getName());
         taskName.getStyleClass().add("subtaskDetailsTitle");
+        taskName.setWrapText(true);
+        taskName.setMinWidth(Region.USE_PREF_SIZE);
 
 
         Button editTaskButton = new Button("✎");
         editTaskButton.getStyleClass().add("editTitleButton");
+        editTaskButton.setMinWidth(Region.USE_PREF_SIZE);
 
         editTaskButton.setOnAction(event ->
                 editTaskName(task, taskName)
@@ -303,6 +306,7 @@ public class TasksController {
 
         Label addSubtask = new Label("+ Add Subtask");
         addSubtask.getStyleClass().add("addSubtask");
+        addSubtask.setMinWidth(Region.USE_PREF_SIZE);
 
         addSubtask.setOnMouseClicked(event ->
                 addSubtask(task, subtasksList)
@@ -341,6 +345,7 @@ public class TasksController {
 
                 Button completeButton = new Button("○");
                 completeButton.getStyleClass().add("subtaskComplete");
+                completeButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 completeButton.setOnAction(event -> {
 
@@ -357,6 +362,8 @@ public class TasksController {
 
                 Label subtaskName = new Label(subtask.getName());
                 subtaskName.getStyleClass().add("subtaskName");
+                subtaskName.setWrapText(true);
+                subtaskName.setMinWidth(Region.USE_PREF_SIZE);
 
                 TextField editName = new TextField(subtask.getName());
                 editName.setVisible(false);
@@ -369,6 +376,7 @@ public class TasksController {
 
                 Button editButton = new Button("✎");
                 editButton.getStyleClass().add("subtaskEdit");
+                editButton.setMinWidth(Region.USE_PREF_SIZE);
 
                 editButton.setOnAction(event ->
                         editSubtaskName(subtask, subtaskName, editName
