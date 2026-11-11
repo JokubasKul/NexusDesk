@@ -160,7 +160,9 @@ public class TasksController {
                 Label taskName = new Label(task.getName());
                 taskName.getStyleClass().add("taskName");
                 taskName.setWrapText(true);
-                taskName.setMinWidth(Region.USE_PREF_SIZE);
+                taskName.setMinWidth(0);
+                taskName.setMaxWidth(Double.MAX_VALUE);
+                HBox.setHgrow(taskName, Priority.ALWAYS);
 
 
                 Button colourButton = new Button("\uD83C\uDFA8");
@@ -280,11 +282,15 @@ public class TasksController {
 
         HBox titleBox = new HBox(8);
         titleBox.setAlignment(Pos.CENTER_LEFT);
+        titleBox.setMaxWidth(Double.MAX_VALUE);
 
         Label taskName = new Label(task.getName());
         taskName.getStyleClass().add("subtaskDetailsTitle");
         taskName.setWrapText(true);
-        taskName.setMinWidth(Region.USE_PREF_SIZE);
+
+        taskName.setMinWidth(0);
+        taskName.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(taskName, Priority.ALWAYS);
 
 
         Button editTaskButton = new Button("✎");
